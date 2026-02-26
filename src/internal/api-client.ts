@@ -1,6 +1,7 @@
 // INTERNAL ONLY — HTTP client for the underlying swap API
 
 import type {
+  RawProtocolToken,
   ProtocolToken,
   ProtocolQuoteRequest,
   ProtocolQuoteResponse,
@@ -26,7 +27,18 @@ export class ApiClient {
 
   /** Fetch all supported tokens */
   async getTokens(): Promise<ProtocolToken[]> {
-    return this.get<ProtocolToken[]>('/v0/tokens');
+    const raw = await this.get<RawProtocolToken[]>('/v0/tokens');
+    return raw
+      .filter((t) => t.blockchain && t.symbol)
+      .map((t) => ({
+        defuseAssetId: t.assetId,
+        chainName: t.blockchain,
+        address: t.contractAddress,
+        symbol: t.symbol,
+        name: t.symbol,
+        decimals: t.decimals,
+        price: t.price,
+      }));
   }
 
   /** Request a quote (dry=true) or create a transfer (dry=false) */

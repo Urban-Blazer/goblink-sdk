@@ -1,6 +1,18 @@
 // INTERNAL ONLY — these types must never be exported from the public API
 
 /** Token as returned by the upstream swap API */
+/** Raw token shape returned by the 1Click /v0/tokens endpoint */
+export interface RawProtocolToken {
+  assetId: string;
+  blockchain: string;
+  symbol: string;
+  decimals: number;
+  price?: number;
+  priceUpdatedAt?: string;
+  contractAddress?: string;
+}
+
+/** Normalized protocol token used internally by the SDK */
 export interface ProtocolToken {
   defuseAssetId: string;
   chainName: string;
@@ -11,6 +23,7 @@ export interface ProtocolToken {
   decimals: number;
   icon?: string;
   routes?: string[];
+  price?: number;
 }
 
 /** Quote request shape sent to the upstream API */
