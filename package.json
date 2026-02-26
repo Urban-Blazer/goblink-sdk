@@ -1,6 +1,6 @@
 {
   "name": "@urban-blazer/goblink-sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Cross-chain token transfers. 26+ chains, 65+ tokens.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -13,10 +13,22 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
-  "keywords": ["crypto", "cross-chain", "swap", "transfer", "defi", "goblink"],
-  "repository": { "type": "git", "url": "https://github.com/Urban-Blazer/goblink-sdk" },
+  "keywords": [
+    "crypto",
+    "cross-chain",
+    "swap",
+    "transfer",
+    "defi",
+    "goblink"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Urban-Blazer/goblink-sdk"
+  },
   "homepage": "https://goblink.io",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"

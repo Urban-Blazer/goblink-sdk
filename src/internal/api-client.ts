@@ -26,18 +26,18 @@ export class ApiClient {
 
   /** Fetch all supported tokens */
   async getTokens(): Promise<ProtocolToken[]> {
-    return this.get<ProtocolToken[]>('/tokens');
+    return this.get<ProtocolToken[]>('/v0/tokens');
   }
 
   /** Request a quote (dry=true) or create a transfer (dry=false) */
   async postQuote(request: ProtocolQuoteRequest): Promise<ProtocolQuoteResponse> {
-    return this.post<ProtocolQuoteResponse>('/quote', request);
+    return this.post<ProtocolQuoteResponse>('/v0/quote', request);
   }
 
   /** Check the execution status of a transfer */
   async getExecutionStatus(depositAddress: string): Promise<ProtocolExecutionStatus> {
     return this.get<ProtocolExecutionStatus>(
-      `/execution-status/${encodeURIComponent(depositAddress)}`,
+      `/v0/execution-status/${encodeURIComponent(depositAddress)}`,
     );
   }
 
