@@ -34,6 +34,10 @@ export interface QuoteResponse {
   amountIn: string;
   /** Amount the recipient will receive (human-readable) */
   amountOut: string;
+  /** Amount in USD */
+  amountInUsd?: string;
+  /** Amount out USD */
+  amountOutUsd?: string;
   /** Fee applied */
   fee: FeeInfo;
   /** Exchange rate (destination per source) */
@@ -42,6 +46,10 @@ export interface QuoteResponse {
   estimatedTime: number;
   /** Quote expiration time */
   expiresAt: string;
+  /** Signature for submitting the quote */
+  signature?: string;
+  /** Timestamp of the quote */
+  timestamp?: string;
 }
 
 /** Fee information included in quotes */

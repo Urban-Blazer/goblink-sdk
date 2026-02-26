@@ -91,25 +91,31 @@ export async function executeQuoteRequest(
 
   const protocolResponse = await apiClient.postQuote(protocolRequest);
 
-  const amountIn = fromAtomicAmount(protocolResponse.originAmount, fromToken.decimals);
-  const amountOut = fromAtomicAmount(protocolResponse.destinationAmount, toToken.decimals);
+  const q = protocolResponse.quote;
+
+  // Use formatted amounts from API (already human-readable)
+  const amountIn = q.amountInFormatted ?? fromAtomicAmount(q.amountIn, fromToken.decimals);
+  const amountOut = q.amountOutFormatted ?? fromAtomicAmount(q.amountOut, toToken.decimals);
 
   const amountInNum = parseFloat(amountIn);
   const amountOutNum = parseFloat(amountOut);
   const rate = amountInNum > 0 ? (amountOutNum / amountInNum).toFixed(6) : '0';
 
-  const estimatedTime = protocolResponse.estimatedProcessingTimeMs
-    ? Math.ceil(protocolResponse.estimatedProcessingTimeMs / 1000)
-    : 120;
+  // Time estimate from API (seconds), clamp to minimum 60s
+  const estimatedTime = Math.max(q.timeEstimate ?? 120, 60);
 
   return {
-    quoteId: protocolResponse.quoteId,
-    depositAddress: protocolResponse.depositAddress,
+    quoteId: protocolResponse.correlationId,
+    depositAddress: q.depositAddress ?? protocolResponse.depositAddress ?? '',
     amountIn,
     amountOut,
+    amountInUsd: q.amountInUsd,
+    amountOutUsd: q.amountOutUsd,
     fee,
     rate,
     estimatedTime,
-    expiresAt: protocolResponse.deadline,
+    expiresAt: protocolResponse.quoteRequest.deadline,
+    signature: protocolResponse.signature,
+    timestamp: protocolResponse.timestamp,
   };
 }

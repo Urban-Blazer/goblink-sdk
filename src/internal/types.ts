@@ -50,13 +50,32 @@ export interface ProtocolAppFee {
 }
 
 /** Quote response from the upstream API */
+/** Raw quote response from the 1Click /v0/quote endpoint */
 export interface ProtocolQuoteResponse {
-  quoteId: string;
-  depositAddress: string;
-  originAmount: string;
-  destinationAmount: string;
-  deadline: string;
-  estimatedProcessingTimeMs?: number;
+  quote: {
+    amountIn: string;
+    amountInFormatted: string;
+    amountInUsd: string;
+    amountOut: string;
+    amountOutFormatted: string;
+    amountOutUsd: string;
+    minAmountOut: string;
+    timeEstimate: number;
+    deadline?: string;
+    depositAddress?: string;
+  };
+  quoteRequest: {
+    dry: boolean;
+    recipient: string;
+    refundTo: string;
+    deadline: string;
+    [key: string]: unknown;
+  };
+  signature: string;
+  timestamp: string;
+  correlationId: string;
+  /** Only present when dry=false */
+  depositAddress?: string;
 }
 
 /** Execution status from the upstream API */
