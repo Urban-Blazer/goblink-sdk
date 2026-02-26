@@ -105,6 +105,7 @@ export class AssetMapper {
         decimals: pt.decimals,
         address: pt.address,
         icon: pt.icon ?? getTokenIcon(pt.symbol),
+        price: pt.price,
       };
 
       this.tokenMap.set(assetId, token);

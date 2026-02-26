@@ -1,6 +1,6 @@
 {
   "name": "@urban-blazer/goblink-sdk",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Cross-chain token transfers. 26+ chains, 65+ tokens.",
   "type": "module",
   "main": "./dist/index.cjs",

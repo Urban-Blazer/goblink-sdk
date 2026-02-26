@@ -19,6 +19,8 @@ export interface Token {
   address?: string;
   /** Icon URL */
   icon?: string;
+  /** Current price in USD */
+  price?: number;
 }
 
 /** Options for filtering tokens */
