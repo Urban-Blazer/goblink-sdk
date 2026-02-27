@@ -11,8 +11,8 @@ import { waitForCompletion } from './transfers/wait.js';
 import type { WaitForCompletionOptions } from './transfers/wait.js';
 import { validateAddress } from './validation/address.js';
 import { getAllChains } from './chains/config.js';
-import { createPaymentLink, createBadge } from './links/payment-link.js';
-import type { PaymentLinkOptions, BadgeOptions } from './links/types.js';
+import { createPaymentLink, createBadge, shortenPaymentLink } from './links/payment-link.js';
+import type { PaymentLinkOptions, BadgeOptions, ShortenOptions, ShortenResponse } from './links/types.js';
 import type { ChainId, ChainConfig } from './chains/types.js';
 import type { Token, TokenFilterOptions } from './tokens/types.js';
 import type { QuoteRequest, QuoteResponse, FeeInfo } from './quotes/types.js';
@@ -204,6 +204,29 @@ export class GoBlink {
    */
   createBadge(options: BadgeOptions): string {
     return createBadge(options);
+  }
+
+  /**
+   * Create a short payment link via the goblink.io API.
+   * Returns a short URL like `https://goblink.io/pay/AbC12xYz` instead of a long query string.
+   *
+   * @param options - Payment link options (recipient, chain, token, amount required)
+   * @returns Short link ID and URL
+   *
+   * @example
+   * ```typescript
+   * const short = await gb.shortenPaymentLink({
+   *   recipient: '0xABC...123',
+   *   chain: 'ethereum',
+   *   token: 'USDC',
+   *   amount: '50',
+   *   memo: 'Invoice #42',
+   * });
+   * console.log(short.url); // "https://goblink.io/pay/AbC12xYz"
+   * ```
+   */
+  async shortenPaymentLink(options: ShortenOptions): Promise<ShortenResponse> {
+    return shortenPaymentLink(options, this.apiClient['timeout']);
   }
 
   /**

@@ -38,7 +38,7 @@ export { formatUsd, truncateAddress, toAtomicAmount, fromAtomicAmount } from './
 
 // Link helpers
 export { createPaymentLink, createBadge } from './links/payment-link.js';
-export type { PaymentLinkOptions, BadgeOptions } from './links/types.js';
+export type { PaymentLinkOptions, BadgeOptions, ShortenOptions, ShortenResponse } from './links/types.js';
 
 // Status polling
 export type { WaitForCompletionOptions } from './transfers/wait.js';

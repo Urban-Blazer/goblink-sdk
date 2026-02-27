@@ -14,6 +14,30 @@ export interface PaymentLinkOptions {
   redirect?: string;
 }
 
+/** Options for creating a short payment link */
+export interface ShortenOptions {
+  /** Recipient wallet address */
+  recipient: string;
+  /** Destination chain identifier */
+  chain: string;
+  /** Token symbol (e.g., "USDC") */
+  token: string;
+  /** Payment amount */
+  amount: string;
+  /** Optional memo/message */
+  memo?: string;
+  /** Requester display name */
+  name?: string;
+}
+
+/** Response from the shorten endpoint */
+export interface ShortenResponse {
+  /** Short link ID */
+  id: string;
+  /** Full short URL (e.g., "https://goblink.io/pay/AbC12xYz") */
+  url: string;
+}
+
 /** Options for creating a README badge */
 export interface BadgeOptions {
   /** Recipient wallet address */
